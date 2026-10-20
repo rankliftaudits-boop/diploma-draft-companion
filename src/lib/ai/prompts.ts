@@ -16,6 +16,17 @@ export const MODE_LABELS: Record<AssistMode, string> = {
   reflection: "قراءة ناقدة للتأمل",
 };
 
+export const TEXT_START = "===بداية النص===";
+export const TEXT_END = "===نهاية النص===";
+
+/** Extracts the usable text block from a draft/polish reply (falls back to the whole reply). */
+export function extractTextBlock(reply: string) {
+  const a = reply.indexOf(TEXT_START);
+  if (a < 0) return reply.trim();
+  const b = reply.indexOf(TEXT_END, a + TEXT_START.length);
+  return reply.slice(a + TEXT_START.length, b < 0 ? undefined : b).trim();
+}
+
 /** Minimum words of the student's own raw notes before the assistant will draft prose. */
 export const MIN_NOTES_WORDS_FOR_DRAFT = 60;
 
@@ -118,6 +129,7 @@ export function buildUserPrompt(i: AssistInput) {
 - بنية تحليلية: الموقف ← التحليل بمعرفة تربوية ← الأثر على التعلم ← ما سأفعله.
 - كل موضع يحتاج دليلاً أو تفصيلاً غير موجود: ⟦أضف: ...⟧ بدلاً من اختراعه.
 - بلا عبارات قالبية، وبفقرات متماسكة وانتقالات طبيعية.
+- ضع نص المسودة وحده بين سطرين مستقلين: ${TEXT_START} ثم ${TEXT_END}.
 - بعد المسودة أضف قسماً قصيراً بعنوان «قبل أن تعتمدها» فيه ٣ نقاط: ما يجب أن يتحقق منه الطالب أو يضيفه بنفسه ليصبح النص نصّه فعلاً.`;
     case "polish":
       return `${ctx}
@@ -128,7 +140,7 @@ ${i.selection?.trim() ? `حسّن هذا الجزء المحدد فقط:\n"""${i
 - حوّل الوصف المجرد إلى تفسير، والعموميات إلى عبارات محددة، واحذف الحشو والقوالب.
 - لا تضف وقائع جديدة؛ ضع ⟦أضف: ...⟧ حيث يلزم دليل.
 أعد:
-1. **النص المحسَّن** كاملاً.
+1. **النص المحسَّن** كاملاً، وحده بين سطرين مستقلين: ${TEXT_START} ثم ${TEXT_END}.
 2. **ما الذي تغيّر ولماذا**: ٣–٦ نقاط قصيرة مرتبطة بالمعايير الأربعة، ليتعلم الطالب الصنعة لا ليستلم النتيجة فقط.`;
     case "critique":
       return `${ctx}
