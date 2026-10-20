@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedActivateRouteImport } from './routes/_authenticated/activate'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
 import { Route as ApiAssistRouteImport } from './routes/api/assist'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
@@ -60,6 +61,11 @@ const TermsRoute = TermsRouteImport.update({
 const AuthenticatedActivateRoute = AuthenticatedActivateRouteImport.update({
   id: '/activate',
   path: '/activate',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAppRouteRoute = AuthenticatedAppRouteRouteImport.update({
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/activate': typeof AuthenticatedActivateRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/api/assist': typeof ApiAssistRoute
   '/app/assess': typeof AuthenticatedAppAssessRoute
   '/app/export': typeof AuthenticatedAppExportRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/activate': typeof AuthenticatedActivateRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/api/assist': typeof ApiAssistRoute
   '/app/assess': typeof AuthenticatedAppAssessRoute
   '/app/export': typeof AuthenticatedAppExportRoute
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/_authenticated/activate': typeof AuthenticatedActivateRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/assist': typeof ApiAssistRoute
   '/_authenticated/app/assess': typeof AuthenticatedAppAssessRoute
   '/_authenticated/app/export': typeof AuthenticatedAppExportRoute
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/app'
     | '/activate'
+    | '/admin'
     | '/api/assist'
     | '/app/assess'
     | '/app/export'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/activate'
+    | '/admin'
     | '/api/assist'
     | '/app/assess'
     | '/app/export'
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/app'
     | '/_authenticated/activate'
+    | '/_authenticated/admin'
     | '/api/assist'
     | '/_authenticated/app/assess'
     | '/_authenticated/app/export'
@@ -298,6 +310,13 @@ declare module '@tanstack/react-router' {
       path: '/activate'
       fullPath: '/activate'
       preLoaderRoute: typeof AuthenticatedActivateRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app': {
@@ -412,11 +431,13 @@ const AuthenticatedAppRouteRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppRouteRoute: typeof AuthenticatedAppRouteRouteWithChildren
   AuthenticatedActivateRoute: typeof AuthenticatedActivateRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppRouteRoute: AuthenticatedAppRouteRouteWithChildren,
   AuthenticatedActivateRoute: AuthenticatedActivateRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
