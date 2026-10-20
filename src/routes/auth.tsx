@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -184,22 +184,18 @@ function AuthPage() {
 /** After a full-page Google redirect lands back on /auth, continue once the session exists. */
 function AfterOAuth() {
   const navigate = useNavigate();
-  const [checked, setChecked] = useState(false);
-  if (typeof window !== "undefined" && !checked) {
-    setChecked(true);
-    queueMicrotask(async () => {
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        let to = "/app";
-        try {
-          to = safeRedirect(sessionStorage.getItem("rafeeq:after-login") ?? undefined);
-          sessionStorage.removeItem("rafeeq:after-login");
-        } catch {
-          /* ignore */
-        }
-        navigate({ to, replace: true });
+  useEffect(() => {
+    void supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) return;
+      let to = "/app";
+      try {
+        to = safeRedirect(sessionStorage.getItem("rafeeq:after-login") ?? undefined);
+        sessionStorage.removeItem("rafeeq:after-login");
+      } catch {
+        /* ignore */
       }
+      navigate({ to, replace: true });
     });
-  }
+  }, [navigate]);
   return null;
 }

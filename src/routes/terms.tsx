@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
+import { RESPONSIBLE_USE } from "@/lib/responsible-use";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
@@ -13,13 +14,6 @@ export const Route = createFileRoute("/terms")({
   component: Terms,
 });
 
-export const RESPONSIBLE_USE = [
-  "رفيق شريك تفكير ومحرر: يستخرج تجربتك، ويقترح، ويقوّي، وينقد. العمل النهائي عملك أنت وأنت المسؤول عنه.",
-  "لا تقدّم نصاً لم تراجعه وتعدّله وتتحقق من كل ما فيه. املأ كل ⟦أضف: …⟧ من تجربتك الحقيقية.",
-  "تحقّق من أي مرجع يقترحه المساعد قبل استخدامه، ولا تستشهد بما لم تقرأه.",
-  "اتبع سياسة الأكاديمية ومدرّسيك في استخدام أدوات الذكاء الاصطناعي، وأفصح عن استخدامها حين يُطلب ذلك.",
-  "لا تُدخل أسماء طلبة أو بيانات تعريفية عنهم أو عن مدارسهم.",
-];
 
 function Terms() {
   return (
