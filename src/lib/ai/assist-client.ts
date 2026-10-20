@@ -19,7 +19,7 @@ export async function streamAssist(
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
     body: JSON.stringify(req),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok || !res.body) {
     let msg = "تعذّر الوصول إلى المساعد.";

@@ -45,7 +45,7 @@ function StudioList() {
           .single(),
       );
       await qc.invalidateQueries({ queryKey: docsQuery.queryKey });
-      navigate({ to: "/app/studio/$docId", params: { docId: doc.id } });
+      navigate({ to: "/app/studio/$docId", params: { docId: doc!.id } });
     } catch (err) {
       toastError(err);
     } finally {

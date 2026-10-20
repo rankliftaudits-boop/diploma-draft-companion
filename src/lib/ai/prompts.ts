@@ -42,16 +42,16 @@ export type AssistProfile = {
 
 export type AssistInput = {
   mode: AssistMode;
-  title?: string;
-  docType?: string;
-  module?: string;
-  brief?: string;
-  notes?: string;
-  content?: string;
-  selection?: string;
-  question?: string;
-  wordTarget?: number | null;
-  reflection?: Partial<Record<(typeof REFLECTION_AXES)[number]["key"], string>>;
+  title?: string | undefined;
+  docType?: string | undefined;
+  module?: string | undefined;
+  brief?: string | undefined;
+  notes?: string | undefined;
+  content?: string | undefined;
+  selection?: string | undefined;
+  question?: string | undefined;
+  wordTarget?: number | null | undefined;
+  reflection?: Partial<Record<(typeof REFLECTION_AXES)[number]["key"], string>> | undefined;
 };
 
 export function buildSystemPrompt(p: AssistProfile) {

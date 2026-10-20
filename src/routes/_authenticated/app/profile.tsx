@@ -64,7 +64,7 @@ function ProfilePage() {
       .update({ ...p, track: p.track || null, specialty: p.specialty || null, sep: p.sep || null })
       .eq("id", profile!.id);
     setBusy(false);
-    if (error) return toast.error("تعذّر الحفظ.");
+    if (error) { toast.error("تعذّر الحفظ."); return; }
     toast.success("حُفظ ملفك. سيكتب رفيق الآن بصوتك وسياقك.");
     qc.invalidateQueries({ queryKey: profileQuery.queryKey });
   }

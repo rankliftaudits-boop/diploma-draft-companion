@@ -46,7 +46,7 @@ function ReflectPage() {
           .single(),
       );
       await qc.invalidateQueries({ queryKey: reflectionsQuery.queryKey });
-      setActiveId(r.id);
+      setActiveId(r!.id);
     } catch (e) {
       toastError(e);
     }
@@ -112,7 +112,7 @@ function ReflectionEditor({ r, onDeleted }: { r: Reflection; onDeleted: () => vo
     pending.current = {};
     if (!Object.keys(patch).length) return;
     try {
-      await run(supabase.from("reflections").update(patch).eq("id", r.id));
+      await run(supabase.from("reflections").update(patch as Partial<Reflection>).eq("id", r.id));
       qc.invalidateQueries({ queryKey: reflectionsQuery.queryKey });
     } catch (e) {
       toastError(e);
@@ -156,7 +156,7 @@ function ReflectionEditor({ r, onDeleted }: { r: Reflection; onDeleted: () => vo
         supabase.from("writing_docs").insert({ title: `مقال تأملي: ${v.title}`, doc_type: "مقال تأملي", module: "M3 — الخبرة المدرسية وملف الإنجاز", notes }).select("id").single(),
       );
       await qc.invalidateQueries({ queryKey: docsQuery.queryKey });
-      navigate({ to: "/app/studio/$docId", params: { docId: doc.id } });
+      navigate({ to: "/app/studio/$docId", params: { docId: doc!.id } });
     } catch (e) {
       toastError(e);
     }

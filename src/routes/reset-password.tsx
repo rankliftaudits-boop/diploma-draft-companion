@@ -26,11 +26,11 @@ function ResetPassword() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (password.length < 8) return toast.error("كلمة المرور 8 أحرف على الأقل.");
+    if (password.length < 8) { toast.error("كلمة المرور 8 أحرف على الأقل."); return; }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
-    if (error) return toast.error("انتهت صلاحية الرابط. اطلب رابطاً جديداً.");
+    if (error) { toast.error("انتهت صلاحية الرابط. اطلب رابطاً جديداً."); return; }
     toast.success("تم تعيين كلمة المرور.");
     navigate({ to: "/app", replace: true });
   }

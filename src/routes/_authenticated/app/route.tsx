@@ -163,7 +163,7 @@ function ResponsibleUseGate() {
       .update({ responsible_use_accepted_at: new Date().toISOString() })
       .eq("id", data.user!.id);
     setBusy(false);
-    if (error) return toast.error("تعذّر الحفظ. حاول مجدداً.");
+    if (error) { toast.error("تعذّر الحفظ. حاول مجدداً."); return; }
     qc.invalidateQueries({ queryKey: profileQuery.queryKey });
   }
   return (

@@ -40,8 +40,8 @@ function Activate() {
     const { data, error } = await supabase.rpc("redeem_access_code", { _code: code });
     setBusy(false);
     const res = data as { ok: boolean; error?: string; access_until?: string } | null;
-    if (error || !res) return toast.error("تعذّر التحقق من الكود. حاول مجدداً.");
-    if (!res.ok) return toast.error(REDEEM_ERRORS[res.error ?? ""] ?? "تعذّر تفعيل الكود.");
+    if (error || !res) { toast.error("تعذّر التحقق من الكود. حاول مجدداً."); return; }
+    if (!res.ok) { toast.error(REDEEM_ERRORS[res.error ?? ""] ?? "تعذّر تفعيل الكود."); return; }
     toast.success(`تم التفعيل! اشتراكك فعّال حتى ${formatDate(res.access_until)}`);
     setCode("");
     await qc.invalidateQueries({ queryKey: accessQuery.queryKey });

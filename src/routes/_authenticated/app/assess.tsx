@@ -39,7 +39,7 @@ function AssessPage() {
         { criterion, self_level: cur?.self_level ?? null, assessor_level: cur?.assessor_level ?? null, ...patch, user_id: profile!.id },
         { onConflict: "user_id,criterion" },
       );
-    if (error) return toastError(new Error("تعذّر الحفظ: تأكد أن اشتراكك فعّال."));
+    if (error) { toastError(new Error("تعذّر الحفظ: تأكد أن اشتراكك فعّال.")); return; }
     qc.invalidateQueries({ queryKey: assessmentsQuery.queryKey });
   }
 
@@ -75,7 +75,7 @@ function AssessPage() {
                   className="sm:col-span-3"
                   onClick={async () => {
                     const { error } = await supabase.from("profiles").update({ domain_names: names }).eq("id", profile!.id);
-                    if (error) return toast.error("تعذّر الحفظ");
+                    if (error) { toast.error("تعذّر الحفظ"); return; }
                     setEditing(false);
                     qc.invalidateQueries({ queryKey: profileQuery.queryKey });
                   }}

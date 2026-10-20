@@ -91,7 +91,7 @@ export const JOURNEY = [
 export function estimateGpa(m1: unknown, m2: unknown, m3: unknown) {
   const vals = [m1, m2, m3].map((v) => (v === "" || v == null ? NaN : Number(v)));
   if (vals.some((v) => Number.isNaN(v) || v < 0 || v > 4)) return null;
-  const v = 0.3 * vals[0] + 0.3 * vals[1] + 0.4 * vals[2];
+  const v = 0.3 * vals[0]! + 0.3 * vals[1]! + 0.4 * vals[2]!;
   const band = v >= 4 ? "Distinction" : v >= 3.75 ? "Merit" : v >= 3.5 ? "Good Pass" : v >= 3 ? "Pass" : "Fail";
   return { value: v, pass: v >= 3, band };
 }

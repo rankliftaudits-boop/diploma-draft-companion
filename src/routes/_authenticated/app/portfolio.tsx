@@ -29,7 +29,7 @@ function PortfolioPage() {
   const { data: profile } = useSuspenseQuery(profileQuery);
   const qc = useQueryClient();
   const standards = [...CRITERIA.map((c) => c.name), ...domainList(profile?.domain_names).map((d) => d.name)];
-  const [form, setForm] = useState({ title: "", kind: PORTFOLIO_TYPES[0] as string, standard: standards[0], evidence: "", link: "" });
+  const [form, setForm] = useState({ title: "", kind: PORTFOLIO_TYPES[0] as string, standard: standards[0] ?? "", evidence: "", link: "" });
   const refresh = () => qc.invalidateQueries({ queryKey: portfolioQuery.queryKey });
 
   async function add(e: React.FormEvent) {
