@@ -18,6 +18,15 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedActivateRouteImport } from './routes/_authenticated/activate'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
 import { Route as ApiAssistRouteImport } from './routes/api/assist'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
+import { Route as AuthenticatedAppAssessRouteImport } from './routes/_authenticated/app/assess'
+import { Route as AuthenticatedAppExportRouteImport } from './routes/_authenticated/app/export'
+import { Route as AuthenticatedAppPortfolioRouteImport } from './routes/_authenticated/app/portfolio'
+import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
+import { Route as AuthenticatedAppReflectRouteImport } from './routes/_authenticated/app/reflect'
+import { Route as AuthenticatedAppTasksRouteImport } from './routes/_authenticated/app/tasks'
+import { Route as AuthenticatedAppStudioIndexRouteImport } from './routes/_authenticated/app/studio/index'
+import { Route as AuthenticatedAppStudioDocIdRouteImport } from './routes/_authenticated/app/studio/$docId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -63,6 +72,54 @@ const ApiAssistRoute = ApiAssistRouteImport.update({
   path: '/api/assist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppAssessRoute = AuthenticatedAppAssessRouteImport.update({
+  id: '/assess',
+  path: '/assess',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppExportRoute = AuthenticatedAppExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppPortfolioRoute =
+  AuthenticatedAppPortfolioRouteImport.update({
+    id: '/portfolio',
+    path: '/portfolio',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
+const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppReflectRoute = AuthenticatedAppReflectRouteImport.update({
+  id: '/reflect',
+  path: '/reflect',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppTasksRoute = AuthenticatedAppTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppStudioIndexRoute =
+  AuthenticatedAppStudioIndexRouteImport.update({
+    id: '/studio/',
+    path: '/studio/',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
+const AuthenticatedAppStudioDocIdRoute =
+  AuthenticatedAppStudioDocIdRouteImport.update({
+    id: '/studio/$docId',
+    path: '/studio/$docId',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -70,9 +127,18 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
-  '/app': typeof AuthenticatedAppRouteRoute
+  '/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/activate': typeof AuthenticatedActivateRoute
   '/api/assist': typeof ApiAssistRoute
+  '/app/assess': typeof AuthenticatedAppAssessRoute
+  '/app/export': typeof AuthenticatedAppExportRoute
+  '/app/portfolio': typeof AuthenticatedAppPortfolioRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reflect': typeof AuthenticatedAppReflectRoute
+  '/app/tasks': typeof AuthenticatedAppTasksRoute
+  '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/studio/$docId': typeof AuthenticatedAppStudioDocIdRoute
+  '/app/studio/': typeof AuthenticatedAppStudioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -80,9 +146,17 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
-  '/app': typeof AuthenticatedAppRouteRoute
   '/activate': typeof AuthenticatedActivateRoute
   '/api/assist': typeof ApiAssistRoute
+  '/app/assess': typeof AuthenticatedAppAssessRoute
+  '/app/export': typeof AuthenticatedAppExportRoute
+  '/app/portfolio': typeof AuthenticatedAppPortfolioRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reflect': typeof AuthenticatedAppReflectRoute
+  '/app/tasks': typeof AuthenticatedAppTasksRoute
+  '/app': typeof AuthenticatedAppIndexRoute
+  '/app/studio/$docId': typeof AuthenticatedAppStudioDocIdRoute
+  '/app/studio': typeof AuthenticatedAppStudioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -92,9 +166,18 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
-  '/_authenticated/app': typeof AuthenticatedAppRouteRoute
+  '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/_authenticated/activate': typeof AuthenticatedActivateRoute
   '/api/assist': typeof ApiAssistRoute
+  '/_authenticated/app/assess': typeof AuthenticatedAppAssessRoute
+  '/_authenticated/app/export': typeof AuthenticatedAppExportRoute
+  '/_authenticated/app/portfolio': typeof AuthenticatedAppPortfolioRoute
+  '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
+  '/_authenticated/app/reflect': typeof AuthenticatedAppReflectRoute
+  '/_authenticated/app/tasks': typeof AuthenticatedAppTasksRoute
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/studio/$docId': typeof AuthenticatedAppStudioDocIdRoute
+  '/_authenticated/app/studio/': typeof AuthenticatedAppStudioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +190,15 @@ export interface FileRouteTypes {
     | '/app'
     | '/activate'
     | '/api/assist'
+    | '/app/assess'
+    | '/app/export'
+    | '/app/portfolio'
+    | '/app/profile'
+    | '/app/reflect'
+    | '/app/tasks'
+    | '/app/'
+    | '/app/studio/$docId'
+    | '/app/studio/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -114,9 +206,17 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/terms'
-    | '/app'
     | '/activate'
     | '/api/assist'
+    | '/app/assess'
+    | '/app/export'
+    | '/app/portfolio'
+    | '/app/profile'
+    | '/app/reflect'
+    | '/app/tasks'
+    | '/app'
+    | '/app/studio/$docId'
+    | '/app/studio'
   id:
     | '__root__'
     | '/'
@@ -128,6 +228,15 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/activate'
     | '/api/assist'
+    | '/_authenticated/app/assess'
+    | '/_authenticated/app/export'
+    | '/_authenticated/app/portfolio'
+    | '/_authenticated/app/profile'
+    | '/_authenticated/app/reflect'
+    | '/_authenticated/app/tasks'
+    | '/_authenticated/app/'
+    | '/_authenticated/app/studio/$docId'
+    | '/_authenticated/app/studio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -205,16 +314,108 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAssistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/assess': {
+      id: '/_authenticated/app/assess'
+      path: '/assess'
+      fullPath: '/app/assess'
+      preLoaderRoute: typeof AuthenticatedAppAssessRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/export': {
+      id: '/_authenticated/app/export'
+      path: '/export'
+      fullPath: '/app/export'
+      preLoaderRoute: typeof AuthenticatedAppExportRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/portfolio': {
+      id: '/_authenticated/app/portfolio'
+      path: '/portfolio'
+      fullPath: '/app/portfolio'
+      preLoaderRoute: typeof AuthenticatedAppPortfolioRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/profile': {
+      id: '/_authenticated/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/reflect': {
+      id: '/_authenticated/app/reflect'
+      path: '/reflect'
+      fullPath: '/app/reflect'
+      preLoaderRoute: typeof AuthenticatedAppReflectRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/tasks': {
+      id: '/_authenticated/app/tasks'
+      path: '/tasks'
+      fullPath: '/app/tasks'
+      preLoaderRoute: typeof AuthenticatedAppTasksRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/studio/': {
+      id: '/_authenticated/app/studio/'
+      path: '/studio'
+      fullPath: '/app/studio/'
+      preLoaderRoute: typeof AuthenticatedAppStudioIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/studio/$docId': {
+      id: '/_authenticated/app/studio/$docId'
+      path: '/studio/$docId'
+      fullPath: '/app/studio/$docId'
+      preLoaderRoute: typeof AuthenticatedAppStudioDocIdRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
   }
 }
 
+interface AuthenticatedAppRouteRouteChildren {
+  AuthenticatedAppAssessRoute: typeof AuthenticatedAppAssessRoute
+  AuthenticatedAppExportRoute: typeof AuthenticatedAppExportRoute
+  AuthenticatedAppPortfolioRoute: typeof AuthenticatedAppPortfolioRoute
+  AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
+  AuthenticatedAppReflectRoute: typeof AuthenticatedAppReflectRoute
+  AuthenticatedAppTasksRoute: typeof AuthenticatedAppTasksRoute
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppStudioDocIdRoute: typeof AuthenticatedAppStudioDocIdRoute
+  AuthenticatedAppStudioIndexRoute: typeof AuthenticatedAppStudioIndexRoute
+}
+
+const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
+  AuthenticatedAppAssessRoute: AuthenticatedAppAssessRoute,
+  AuthenticatedAppExportRoute: AuthenticatedAppExportRoute,
+  AuthenticatedAppPortfolioRoute: AuthenticatedAppPortfolioRoute,
+  AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
+  AuthenticatedAppReflectRoute: AuthenticatedAppReflectRoute,
+  AuthenticatedAppTasksRoute: AuthenticatedAppTasksRoute,
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppStudioDocIdRoute: AuthenticatedAppStudioDocIdRoute,
+  AuthenticatedAppStudioIndexRoute: AuthenticatedAppStudioIndexRoute,
+}
+
+const AuthenticatedAppRouteRouteWithChildren =
+  AuthenticatedAppRouteRoute._addFileChildren(
+    AuthenticatedAppRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRouteRoute: typeof AuthenticatedAppRouteRoute
+  AuthenticatedAppRouteRoute: typeof AuthenticatedAppRouteRouteWithChildren
   AuthenticatedActivateRoute: typeof AuthenticatedActivateRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRouteRoute: AuthenticatedAppRouteRoute,
+  AuthenticatedAppRouteRoute: AuthenticatedAppRouteRouteWithChildren,
   AuthenticatedActivateRoute: AuthenticatedActivateRoute,
 }
 
