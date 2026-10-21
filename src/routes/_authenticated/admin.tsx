@@ -161,7 +161,7 @@ function AdminDashboard() {
       <main className="mx-auto max-w-7xl space-y-5 px-4 py-6">
         <h1 className="font-display text-3xl font-bold text-ink">لوحة الإدارة</h1>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-          {[["مستخدمون", data?.profiles.length ?? 0], ["اشتراكات فعّالة", activeSubs], ["أكواد جاهزة", counts.ready ?? 0], ["أكواد محروقة", counts.burned ?? 0], ["طلبات المساعد (24س)", usage24]].map(([k, v]) => (
+          {[["مستخدمون", data?.profiles.length ?? 0], ["اشتراكات فعّالة", activeSubs], ["أكواد جاهزة", counts["ready"] ?? 0], ["أكواد محروقة", counts["burned"] ?? 0], ["طلبات المساعد (24س)", usage24]].map(([k, v]) => (
             <div key={k} className="rounded-xl border bg-card p-4"><p className="text-xs text-muted-foreground">{k}</p><p className="font-display text-2xl font-bold text-ink">{v}</p></div>
           ))}
         </div>
